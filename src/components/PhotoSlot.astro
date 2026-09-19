@@ -1,0 +1,27 @@
+---
+import { photos } from '../config';
+
+interface Props {
+  id: keyof typeof photos;
+  class?: string;
+  size?: 'hero' | 'side' | 'strip';
+  framed?: boolean;
+}
+
+const { id, class: className, size = 'hero', framed = true } = Astro.props;
+const photo = photos[id];
+const sizeClass =
+  size === 'side' ? 'photo-slot--side' : size === 'strip' ? 'photo-slot--strip' : '';
+---
+
+<figure class:list={[framed && 'photo-frame', size === 'side' && 'h-full', className]}>
+  {
+    photo.src ? (
+      <img src={photo.src} alt={photo.caption.replace(/^\[|\]$/g, '')} />
+    ) : (
+      <div class:list={['photo-slot', sizeClass]} role="img" aria-label={photo.caption}>
+        <span>{photo.caption}</span>
+      </div>
+    )
+  }
+</figure>

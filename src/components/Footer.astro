@@ -1,0 +1,21 @@
+---
+import { GIVING_CONTACT_EMAIL, PRIVACY_URL, SCAD_URL, STEC_URL } from '../config';
+---
+
+<footer class="border-t border-rule">
+  <div
+    class="page-gutter flex flex-col gap-3 py-8 text-sm text-dim md:flex-row md:flex-wrap md:items-center md:gap-x-6"
+  >
+    <a class="text-mute no-underline hover:text-accent" href={SCAD_URL}>SCAD</a>
+    <span aria-hidden="true" class="hidden md:inline text-rule">·</span>
+    <a class="text-mute no-underline hover:text-accent" href={STEC_URL}>
+      School of Creative Technology
+    </a>
+    <span aria-hidden="true" class="hidden md:inline text-rule">·</span>
+    <a class="text-mute no-underline hover:text-accent" href={`mailto:${GIVING_CONTACT_EMAIL}`}>
+      {GIVING_CONTACT_EMAIL}
+    </a>
+    <span aria-hidden="true" class="hidden md:inline text-rule">·</span>
+    <a class="text-mute no-underline hover:text-accent" href={PRIVACY_URL}>Privacy</a>
+  </div>
+</footer>

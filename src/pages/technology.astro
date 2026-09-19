@@ -1,0 +1,140 @@
+---
+import {
+  TECH_FUND_URL,
+  copy,
+  courses,
+  giftAmounts,
+  defaultGiftAmount,
+  formatUsd,
+  withAmount,
+} from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import PageClose from '../components/PageClose.astro';
+---
+
+<BaseLayout
+  title="The Technology Fund — Build Tomorrow."
+  description={copy.techSub}
+  ogImage="/og/technology.png"
+>
+  <section class="page-gutter pt-12 pb-12 md:pt-20 md:pb-20">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
+      <div>
+        <Eyebrow>The Technology Fund</Eyebrow>
+        <h1 class="display mt-5">Give to the future of technology education at SCAD.</h1>
+        <p class="mt-6 text-lg md:text-xl text-mute leading-relaxed">
+          {copy.techSub}
+        </p>
+        <div class="mt-8">
+          <Button href={TECH_FUND_URL} external>Give Now</Button>
+        </div>
+      </div>
+      <PhotoSlot id="techHero" size="side" framed={false} />
+    </div>
+  </section>
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Pick an amount.</h2>
+    </div>
+    <div class="mt-8 flex flex-wrap gap-3">
+      {
+        giftAmounts.map((amount) => (
+          <a
+            class:list={['amount', amount === defaultGiftAmount && 'is-active']}
+            href={withAmount(TECH_FUND_URL, amount)}
+            aria-current={amount === defaultGiftAmount ? 'true' : undefined}
+          >
+            {formatUsd(amount)}
+          </a>
+        ))
+      }
+    </div>
+    <form class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end" data-other-amount>
+      <div class="field max-w-xs">
+        <label for="other-amount">Other</label>
+        <input
+          id="other-amount"
+          name="amount"
+          type="number"
+          min="1"
+          step="1"
+          inputmode="numeric"
+          placeholder="Enter amount"
+        />
+      </div>
+      <Button href={TECH_FUND_URL} external class="other-give">Give this amount</Button>
+    </form>
+    <p class="mt-4 text-sm text-dim">
+      Amounts open SCAD Giving with <code class="text-mute">?amount=</code> when live fund URLs are
+      in config. Current link is a placeholder.
+    </p>
+  </section>
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Sponsor a class.</h2>
+      <p class="mt-4 max-w-2xl text-mute">
+        {formatUsd(5000)} names a class in Applied AI or Robotics for the year.
+      </p>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      {
+        courses.map((course) => (
+          <article class="bg-surface border-t-2 border-accent p-6 md:p-8 flex flex-col">
+            <p class="eyebrow">{course.code}</p>
+            <h3 class="mt-3 font-black text-2xl tracking-tight">{course.name}</h3>
+            <p class="mt-2 font-extrabold text-ink">{formatUsd(course.amount)}</p>
+            <p class="mt-3 text-mute flex-1 leading-relaxed">{course.blurb}</p>
+            <div class="mt-6">
+              <Button href={withAmount(TECH_FUND_URL, course.amount)} external>
+                Sponsor this class
+              </Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="pb-8">
+    <div class="photo-frame grid gap-3 md:grid-cols-3">
+      <PhotoSlot id="techStrip1" size="strip" framed={false} />
+      <PhotoSlot id="techStrip2" size="strip" framed={false} />
+      <PhotoSlot id="techStrip3" size="strip" framed={false} />
+    </div>
+  </section>
+
+  <PageClose ctaLabel="Give Now" ctaHref={TECH_FUND_URL} />
+
+  <script is:inline>
+    const form = document.querySelector('[data-other-amount]');
+    const input = document.querySelector('#other-amount');
+    const link = document.querySelector('.other-give');
+    const base = link ? link.getAttribute('href') || '#' : '#';
+
+    function applyAmount() {
+      if (!link || !input) return;
+      const value = Number(input.value);
+      if (!Number.isFinite(value) || value <= 0) {
+        link.setAttribute('href', base);
+        return;
+      }
+      const join = base.includes('?') ? '&' : '?';
+      const href = base === '#' ? '#amount=' + value : base + join + 'amount=' + Math.round(value);
+      link.setAttribute('href', href);
+    }
+
+    if (input) input.addEventListener('input', applyAmount);
+    if (form) {
+      form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        applyAmount();
+        if (link) window.location.assign(link.href);
+      });
+    }
+  </script>
+</BaseLayout>
