@@ -6,19 +6,21 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   external?: boolean;
+  note?: string;
 }
 
 const {
   ctaLabel = 'Give Now',
   ctaHref = TECH_FUND_URL,
   external = true,
+  note = `Every dollar goes to the classroom. The show is ${DEADLINE_TEXT}.`,
 } = Astro.props;
 ---
 
 <section class="section-rule mt-16 py-12 md:py-16">
   <div class="page-gutter flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
     <p class="max-w-xl text-mute text-lg md:text-xl">
-      Every dollar goes to the classroom. The show is {DEADLINE_TEXT}.
+      {note}
     </p>
     <Button href={ctaHref} external={external}>{ctaLabel}</Button>
   </div>

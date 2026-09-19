@@ -126,6 +126,7 @@ body {
 
 .photo-slot--side {
   min-height: 18rem;
+  height: 100%;
 }
 
 .photo-slot--strip {
@@ -274,6 +275,7 @@ select {
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 44rem;
 }
 
 th {

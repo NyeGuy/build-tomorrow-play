@@ -20,7 +20,7 @@ import PageClose from '../components/PageClose.astro';
   ogImage="/og/designtomorrow.png"
 >
   <section class="page-gutter pt-12 pb-12 md:pt-20 md:pb-20">
-    <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-stretch lg:gap-16">
       <div>
         <Eyebrow>Design Tomorrow</Eyebrow>
         <p class="eyebrow mt-3">Week of May 10</p>
@@ -114,5 +114,10 @@ import PageClose from '../components/PageClose.astro';
     </div>
   </section>
 
-  <PageClose ctaLabel="Become a Sponsor" ctaHref="#tiers" external={false} />
+  <PageClose
+    ctaLabel="Become a Sponsor"
+    ctaHref="#tiers"
+    external={false}
+    note="Put the name on the week. Title and Presenting close when sold."
+  />
 </BaseLayout>

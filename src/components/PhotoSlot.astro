@@ -14,7 +14,7 @@ const sizeClass =
   size === 'side' ? 'photo-slot--side' : size === 'strip' ? 'photo-slot--strip' : '';
 ---
 
-<figure class:list={[framed && 'photo-frame', className]}>
+<figure class:list={[framed && 'photo-frame', size === 'side' && 'h-full', className]}>
   {
     photo.src ? (
       <img src={photo.src} alt={photo.caption.replace(/^\[|\]$/g, '')} />
