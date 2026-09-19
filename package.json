@@ -1,0 +1,22 @@
+{
+  "name": "build-tomorrow-play",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Vercel playground for Build Tomorrow — STEC fundraising microsite (Astro static)",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.13.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.1.13",
+    "tailwindcss": "^4.1.13"
+  }
+}

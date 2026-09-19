@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.astro/
+.vercel/
+.DS_Store
+*.log
+.env
+.env.*
+scripts/fonts/

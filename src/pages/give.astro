@@ -1,0 +1,193 @@
+---
+import {
+  FORM_ENDPOINT,
+  FORM_NOTIFY_EMAIL,
+  TECH_FUND_URL,
+  copy,
+  wishlist,
+} from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import PageClose from '../components/PageClose.astro';
+---
+
+<BaseLayout
+  title="Hardware & Compute — Build Tomorrow."
+  description={copy.giveSub}
+  ogImage="/og/give.png"
+>
+  <section class="page-gutter pt-12 pb-12 md:pt-20 md:pb-16">
+    <Eyebrow>Hardware &amp; Compute</Eyebrow>
+    <h1 class="display mt-5 max-w-5xl">Give the thing itself.</h1>
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-mute leading-relaxed">
+      {copy.giveSub}
+    </p>
+  </section>
+
+  <PhotoSlot id="giveHero" class="mb-16 md:mb-24" />
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Lab wishlist.</h2>
+    </div>
+    <div class="mt-8 overflow-x-auto">
+      <table>
+        <caption class="sr-only">Equipment and compute the lab needs</caption>
+        <thead>
+          <tr>
+            <th scope="col">Item</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Need</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            wishlist.map((row) => (
+              <tr>
+                <td>{row.item}</td>
+                <td>{row.qty}</td>
+                <td>{row.need}</td>
+                <td>{row.notes}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Send it.</h2>
+      <p class="mt-4 max-w-2xl text-mute">
+        Two forms. We follow up. No payment on this page. Notices go to {FORM_NOTIFY_EMAIL} once
+        the form endpoint in config is live.
+      </p>
+    </div>
+
+    <div class="mt-8 grid gap-6 lg:grid-cols-2">
+      <form
+        class="bg-surface p-6 md:p-8 grid gap-4"
+        action={FORM_ENDPOINT}
+        method="POST"
+        data-inline-form
+      >
+        <h3 class="font-black text-2xl tracking-tight">Donate equipment</h3>
+        <input type="hidden" name="_subject" value="Build Tomorrow — donate equipment" />
+        <input type="hidden" name="form" value="donate-equipment" />
+        <div class="field">
+          <label for="eq-name">Name</label>
+          <input id="eq-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="eq-email">Email</label>
+          <input id="eq-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="eq-org">Organization</label>
+          <input id="eq-org" name="organization" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="eq-item">Item</label>
+          <input id="eq-item" name="item" type="text" required placeholder="[Robot arm, workstation…]" />
+        </div>
+        <div class="field">
+          <label for="eq-qty">Quantity</label>
+          <input id="eq-qty" name="quantity" type="text" required />
+        </div>
+        <div class="field">
+          <label for="eq-condition">Condition</label>
+          <input id="eq-condition" name="condition" type="text" />
+        </div>
+        <div class="field">
+          <label for="eq-notes">Pickup / shipping notes</label>
+          <textarea id="eq-notes" name="notes" rows="4"></textarea>
+        </div>
+        <div>
+          <button class="cta cta--primary" type="submit">Donate equipment</button>
+        </div>
+        <p class="form-status text-sm text-mute hidden" role="status"></p>
+      </form>
+
+      <form
+        class="bg-surface p-6 md:p-8 grid gap-4"
+        action={FORM_ENDPOINT}
+        method="POST"
+        data-inline-form
+      >
+        <h3 class="font-black text-2xl tracking-tight">Pledge compute</h3>
+        <input type="hidden" name="_subject" value="Build Tomorrow — pledge compute" />
+        <input type="hidden" name="form" value="pledge-compute" />
+        <div class="field">
+          <label for="cpu-name">Name</label>
+          <input id="cpu-name" name="name" type="text" autocomplete="name" required />
+        </div>
+        <div class="field">
+          <label for="cpu-email">Email</label>
+          <input id="cpu-email" name="email" type="email" autocomplete="email" required />
+        </div>
+        <div class="field">
+          <label for="cpu-org">Organization</label>
+          <input id="cpu-org" name="organization" type="text" autocomplete="organization" />
+        </div>
+        <div class="field">
+          <label for="cpu-type">GPU / cloud</label>
+          <input id="cpu-type" name="gpu" type="text" required placeholder="[A100 hours, on-prem cluster…]" />
+        </div>
+        <div class="field">
+          <label for="cpu-hours">Hours pledged</label>
+          <input id="cpu-hours" name="hours" type="text" required />
+        </div>
+        <div class="field">
+          <label for="cpu-access">Access notes</label>
+          <textarea id="cpu-access" name="access" rows="4"></textarea>
+        </div>
+        <div>
+          <button class="cta cta--primary" type="submit">Pledge compute</button>
+        </div>
+        <p class="form-status text-sm text-mute hidden" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+  <PageClose ctaLabel="Give Now" ctaHref={TECH_FUND_URL} />
+
+  <script is:inline>
+    const success = 'Thank you. We got it — no redirect. We will follow up at the email you gave.';
+
+    document.querySelectorAll('[data-inline-form]').forEach(function (form) {
+      form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+        const status = form.querySelector('.form-status');
+        const endpoint = form.getAttribute('action') || '';
+        if (!status) return;
+
+        if (endpoint.includes('PLACEHOLDER')) {
+          status.textContent =
+            success + ' (Form endpoint is still the config placeholder — this was not sent.)';
+          status.classList.remove('hidden');
+          form.reset();
+          return;
+        }
+
+        try {
+          const body = new FormData(form);
+          const response = await fetch(endpoint, {
+            method: 'POST',
+            body: body,
+            headers: { Accept: 'application/json' },
+          });
+          if (!response.ok) throw new Error('submit failed');
+          status.textContent = success;
+          status.classList.remove('hidden');
+          form.reset();
+        } catch (err) {
+          status.textContent = 'Something went wrong. Email us from the address in the footer.';
+          status.classList.remove('hidden');
+        }
+      });
+    });
+  </script>
+</BaseLayout>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
+  <rect width="32" height="32" fill="#1C1C1C"/>
+  <text
+    x="16"
+    y="22"
+    text-anchor="middle"
+    fill="#F2F2F2"
+    font-family="Archivo, Helvetica, Arial, sans-serif"
+    font-size="14"
+    font-weight="900"
+  >BT</text>
+</svg>

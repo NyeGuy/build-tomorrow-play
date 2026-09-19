@@ -1,0 +1,29 @@
+---
+import { GOAL_AMOUNT, RAISED_AMOUNT, DEADLINE_TEXT, formatUsd } from '../config';
+---
+
+<section
+  class="bg-accent text-cta-ink"
+  aria-label="Campaign goal"
+>
+  <div
+    class="page-gutter grid gap-8 py-8 md:grid-cols-2 md:py-10"
+  >
+    <div>
+      <p class="text-[12px] md:text-[14px] font-extrabold uppercase tracking-[3px]">
+        The goal
+      </p>
+      <p class="mt-2 font-black text-3xl md:text-5xl tracking-tight">
+        {formatUsd(GOAL_AMOUNT)} by {DEADLINE_TEXT}
+      </p>
+    </div>
+    <div>
+      <p class="text-[12px] md:text-[14px] font-extrabold uppercase tracking-[3px]">
+        Raised so far
+      </p>
+      <p class="mt-2 font-black text-3xl md:text-5xl tracking-tight">
+        ${RAISED_AMOUNT}
+      </p>
+    </div>
+  </div>
+</section>

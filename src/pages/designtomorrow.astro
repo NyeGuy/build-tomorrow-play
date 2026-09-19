@@ -1,0 +1,118 @@
+---
+import {
+  DT_FUND_URL,
+  SPONSOR_SHEET_URL,
+  copy,
+  tiers,
+  sponsorLogos,
+  formatUsd,
+} from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import PageClose from '../components/PageClose.astro';
+---
+
+<BaseLayout
+  title="Design Tomorrow — Build Tomorrow."
+  description={copy.dtSub}
+  ogImage="/og/designtomorrow.png"
+>
+  <section class="page-gutter pt-12 pb-12 md:pt-20 md:pb-20">
+    <div class="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16">
+      <div>
+        <Eyebrow>Design Tomorrow</Eyebrow>
+        <p class="eyebrow mt-3">Week of May 10</p>
+        <h1 class="display mt-5">Put your logo in front of the talent you'll hire next.</h1>
+        <p class="mt-6 text-lg md:text-xl text-mute leading-relaxed">
+          {copy.dtSub}
+        </p>
+        <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button href="#tiers">Become a Sponsor</Button>
+          <Button href={SPONSOR_SHEET_URL} variant="secondary">Sponsor sheet (PDF)</Button>
+        </div>
+      </div>
+      <PhotoSlot id="dtHero" size="side" framed={false} />
+    </div>
+  </section>
+
+  <section id="tiers" class="page-gutter pb-16 md:pb-24 scroll-mt-8">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Sponsorship tiers.</h2>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+      {
+        tiers.map((tier) => (
+          <article
+            class:list={[
+              'p-6 md:p-8 flex flex-col border-t-2',
+              tier.featured
+                ? 'bg-accent text-cta-ink border-accent'
+                : 'bg-surface text-ink border-accent',
+            ]}
+          >
+            <p
+              class:list={[
+                'text-[12px] md:text-[14px] font-extrabold uppercase tracking-[3px]',
+                tier.featured ? 'text-cta-ink' : 'text-accent',
+              ]}
+            >
+              {tier.name}
+            </p>
+            <p class="mt-2 font-black text-4xl md:text-5xl tracking-tight">
+              {formatUsd(tier.amount)}
+            </p>
+            <ul
+              class:list={[
+                'mt-5 space-y-2 flex-1',
+                tier.featured ? 'text-cta-ink' : 'text-mute',
+              ]}
+            >
+              {tier.benefits.map((benefit) => (
+                <li>{benefit}</li>
+              ))}
+            </ul>
+            <div class="mt-6">
+              <Button href={DT_FUND_URL} variant={tier.featured ? 'dark' : 'primary'} external>
+                Sponsor
+              </Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    <p class="mt-6 max-w-2xl text-sm text-dim leading-relaxed">
+      {copy.dtDeadlines}
+    </p>
+  </section>
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight uppercase">
+        2027 Sponsors
+      </h2>
+    </div>
+    <div class="mt-8 grid grid-cols-2 md:grid-cols-6 gap-3">
+      {
+        sponsorLogos.map((logo) =>
+          logo.src ? (
+            <div class="bg-surface border border-rule grid place-items-center min-h-24 p-4">
+              <img src={logo.src} alt={logo.name} class="max-h-12 w-auto" />
+            </div>
+          ) : (
+            <div
+              class="bg-surface border border-dashed border-dim text-dim min-h-24 grid place-items-center text-center text-sm font-semibold px-3"
+              role="img"
+              aria-label={`[${logo.name}]`}
+            >
+              [{logo.name}]
+            </div>
+          )
+        )
+      }
+    </div>
+  </section>
+
+  <PageClose ctaLabel="Become a Sponsor" ctaHref="#tiers" external={false} />
+</BaseLayout>

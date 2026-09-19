@@ -1,0 +1,56 @@
+---
+import {
+  TECH_FUND_URL,
+  copy,
+  waysToGive,
+} from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Eyebrow from '../components/Eyebrow.astro';
+import PhotoSlot from '../components/PhotoSlot.astro';
+import GoalStrip from '../components/GoalStrip.astro';
+---
+
+<BaseLayout
+  title="Build Tomorrow. — SCAD School of Creative Technology"
+  description={copy.homeSub}
+  ogImage="/og/home.png"
+>
+  <section class="page-gutter pt-12 pb-10 md:pt-20 md:pb-16">
+    <Eyebrow>SCAD School of Creative Technology</Eyebrow>
+    <h1 class="display mt-5 max-w-5xl">Build Tomorrow.</h1>
+    <p class="mt-6 max-w-2xl text-lg md:text-xl text-mute leading-relaxed">
+      {copy.homeSub}
+    </p>
+    <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+      <Button href={TECH_FUND_URL} external>Give to the Technology Fund</Button>
+      <Button href="/designtomorrow/" variant="secondary">Sponsor Design Tomorrow</Button>
+    </div>
+    <p class="mt-6 max-w-2xl text-sm text-dim leading-relaxed">
+      {copy.finePrint501}
+    </p>
+  </section>
+
+  <PhotoSlot id="homeHero" class="mb-16 md:mb-24" />
+
+  <section class="page-gutter pb-16 md:pb-24">
+    <div class="section-rule pt-8">
+      <h2 class="font-black text-3xl md:text-5xl tracking-tight">Three ways to give.</h2>
+    </div>
+    <div class="mt-8 grid gap-4 md:grid-cols-3">
+      {
+        waysToGive.map((way) => (
+          <article class="bg-surface border-t-2 border-accent p-6 md:p-8 flex flex-col">
+            <h3 class="font-black text-2xl tracking-tight">{way.title}</h3>
+            <p class="mt-3 text-mute flex-1 leading-relaxed">{way.body}</p>
+            <div class="mt-6">
+              <Button href={way.href}>{way.cta}</Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <GoalStrip />
+</BaseLayout>
