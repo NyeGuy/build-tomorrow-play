@@ -5,10 +5,10 @@
  * totals, course prices, sponsorship tiers, wishlist rows, or photo paths.
  *
  * ---------------------------------------------------------------------------
- * SCAD Giving links are PLACEHOLDERS. Real Technology Fund and Design Tomorrow
- * fund URLs are coming from SCAD Giving. Do not block Phase 1 on live URLs.
- * Replace TECH_FUND_URL and DT_FUND_URL when Institutional Advancement sends
- * them. Amount buttons append ?amount= when the URL is not "#".
+ * TECH_FUND_URL is the official SCAD Giving Technology Fund link (locked).
+ * DT_FUND_URL remains a PLACEHOLDER until Advancement sends the live
+ * Design Tomorrow / sponsorship URL. Amount buttons append ?amount= when
+ * the URL is not "#".
  *
  * Form handler is a PLACEHOLDER Formspree endpoint. Replace FORM_ENDPOINT
  * with a real Formspree form ID (or a Netlify Forms endpoint) before going
@@ -17,7 +17,7 @@
  */
 
 export const TECH_FUND_URL =
-  'https://example.com/scad-giving-placeholder/technology-fund';
+  'https://www.scad.edu/about/giving/donate?d=AIANDROBS';
 export const DT_FUND_URL =
   'https://example.com/scad-giving-placeholder/design-tomorrow';
 
