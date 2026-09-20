@@ -4,7 +4,7 @@ Fundraising microsite for the **SCAD School of Creative Technology**. An adverti
 
 This repo is the **Vercel play deploy** (`base: '/'`). It is not Satellite Lab and not Agent Arena.
 
-**Phase 1 shell.** Fund URLs, photos, logos, and the raised total are placeholders. Real SCAD Giving links are coming — do not block on them.
+**Phase 1 shell.** `TECH_FUND_URL` is locked to the official SCAD Giving Technology Fund URL. `DT_FUND_URL`, photos, logos, and the raised total are still placeholders.
 
 ## Run locally
 
@@ -32,7 +32,7 @@ All visitor-facing numbers, URLs, courses, tiers, wishlist rows, logos, and phot
 
 | Key | What to put there |
 | --- | --- |
-| `TECH_FUND_URL` | SCAD Giving Technology Fund link (placeholder today) |
+| `TECH_FUND_URL` | Official SCAD Giving Technology Fund URL (locked) |
 | `DT_FUND_URL` | SCAD Giving Design Tomorrow / sponsorship link (placeholder today) |
 | `FORM_ENDPOINT` | Formspree form URL (`https://formspree.io/f/PLACEHOLDER` until live) |
 | `FORM_NOTIFY_EMAIL` | Inbox the form handler should notify |
@@ -47,7 +47,7 @@ All visitor-facing numbers, URLs, courses, tiers, wishlist rows, logos, and phot
 | `sponsorLogos[]` | Logo wall. Empty `src` keeps `[Your logo here]` |
 | `photos{}` | Photo slots. Empty `src` keeps a dashed `[caption]` |
 
-SCAD Giving links are placeholders on purpose. When Advancement sends live URLs, paste them into `TECH_FUND_URL` and `DT_FUND_URL` and rebuild. Amount buttons append `?amount=` when the URL is not `#`.
+`TECH_FUND_URL` is locked. `DT_FUND_URL` is still a placeholder — paste the live Design Tomorrow URL when Advancement sends it and rebuild. Amount buttons append `?amount=` (or `&amount=` when the URL already has a query) when the URL is not `#`.
 
 ## Swap a photo
 
